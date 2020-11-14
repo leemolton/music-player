@@ -27,6 +27,21 @@ const songs = [
     displayName: 'Cant Smile Without You',
     artist: 'Barry Manilow',
   },
+  {
+    name: 'Space',
+    displayName: 'Space',
+    artist: 'Biffy Clyro',
+  },
+  {
+    name: 'Strange-Days',
+    displayName: 'Strange Days',
+    artist: 'The Struts and Robbie Williams',
+  },
+  {
+    name: 'Greatest-Day',
+    displayName: 'Greatest Day',
+    artist: 'Take That',
+  },
 ];
 
 // Check if Playing
