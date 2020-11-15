@@ -6,6 +6,9 @@ const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
 const progress = document.getElementById('progress');
 const progressContainer = document.getElementById('progress-container');
+const volumeIcon = document.getElementById('volume-icon');
+const volumeRange = document.querySelector('.volume-range');
+const volumeBar = document.querySelector('.volume-bar');
 const prevBtn = document.getElementById('prev');
 const playBtn = document.getElementById('play');
 const nextBtn = document.getElementById('next');
@@ -14,43 +17,103 @@ const nextBtn = document.getElementById('next');
 const songs = [
   {
     name: 'Z-Cars',
-    displayName: 'Z-Cars',
+    displayName: '1. Z-Cars',
     artist: 'Johnny Keats',
   },
   {
     name: 'call-it-the-blues',
-    displayName: 'Guess thats why they call it the Blues',
+    displayName: '2. Guess thats why they call it the Blues',
     artist: 'Elton John',
   },
   {
     name: 'Cant-Smile-Without-You',
-    displayName: 'Cant Smile Without You',
+    displayName: '3. Cant Smile Without You',
     artist: 'Barry Manilow',
   },
   {
     name: 'Third-Finger-Left-Hand',
-    displayName: 'Third Finger Left Hand',
+    displayName: '4. Third Finger Left Hand',
     artist: 'Martha Reeves and the Vandellas',
   },
   {
     name: 'Greatest-Day',
-    displayName: 'Greatest Day',
+    displayName: '5. Greatest Day',
     artist: 'Take That',
   },
   {
     name: 'Always-and-forever',
-    displayName: 'Always and Forever',
+    displayName: '6. Always and Forever',
     artist: 'Luther Vandross',
   },
   {
     name: 'When-my-little-girl-is-smiling',
-    displayName: 'When my little girl is smiling',
+    displayName: '7. When my little girl is smiling',
     artist: 'The Drifters',
   },
   {
     name: 'Eye-of-the-tiger',
-    displayName: 'Eye of the Tiger',
+    displayName: '8. Eye of the Tiger',
     artist: 'Survivor',
+  },
+  {
+    name: 'All-Night-Long',
+    displayName: '9. All Night Long',
+    artist: 'Lionel Richie',
+  },
+  {
+    name: 'Hello',
+    displayName: '10. Hello',
+    artist: 'Lionel Richie',
+  },
+  {
+    name: 'Dancing-on-the-ceiling',
+    displayName: '11. Dancing on the ceiling',
+    artist: 'Lionel Richie',
+  },
+  {
+    name: 'Havent-Met-You-Yet',
+    displayName: '12. Havent Met You Yet',
+    artist: 'Michael Buble',
+  },
+  {
+    name: 'Copacabana',
+    displayName: '13. Copacabana',
+    artist: 'Barry Manilow',
+  },
+  {
+    name: 'From-This-Moment',
+    displayName: '14. From This Moment',
+    artist: 'Shania Twain',
+  },
+  {
+    name: 'Mandy',
+    displayName: '15. Mandy',
+    artist: 'Barry Manilow',
+  },
+  {
+    name: 'Strange-days',
+    displayName: '16. Strange Days',
+    artist: 'The Struts feat. Robbie Williams',
+  },
+  {
+    name: 'Even-Now',
+    displayName: '17. Even Now',
+    artist: 'Barry Manilow',
+  },
+  {
+    name: 'Perfect',
+    displayName: '18. Perfect',
+    artist: 'Ed Sheeran',
+  },
+  {
+    name: 'Read-em-and-weep',
+    displayName: '19. Read Em and Weep',
+    artist: 'Barry Manilow',
+  },
+  {
+    name: 'Space',
+    displayName: '20. Space',
+    artist: 'Biffy Clyro',
   },
 ];
 
@@ -75,6 +138,51 @@ function pauseSong() {
 
 // Play or Pause Event Listener
 playBtn.addEventListener('click', () => (isPlaying ? pauseSong() : playSong()));
+
+// Volume Controls --------------------------- //
+
+let lastVolume = 1;
+
+// Volume Bar
+function changeVolume(e) {
+    let volume = e.offsetX / volumeRange.offsetWidth;
+    // Rounding Volume up or down
+    if (volume < 0.1) {
+        volume = 0;
+    }
+    if (volume > 0.9) {
+        volume = 1;
+    }
+    volumeBar.styleWidth = `${volume * 100}%`;
+    music.volume = volume;
+    // Change Icon depending on volume
+    volumeIcon.className = '';
+    if (volume > 0.7) {
+        volumeIcon.classList.add('fas', 'fa-volume-up');
+    } else if (volume < 0.7 && volume > 0) {
+        volumeIcon.classList.add('fas', 'fa-volume-down');
+    } else if (volume === 0) {
+        volumeIcon.classList.add('fas', 'fa-volume-off');
+    }
+    lastVolume = volume;
+}
+
+// Mute/Unmute
+function toggleMute() {
+    volumeIcon.className = '';
+    if (music.volume) {
+        lastVolume = music.volume;
+        music.volume = 0;
+        volumeBar.style.width = 0;
+        volumeIcon.classList.add('fas', 'fa-volume-mute');
+        volumeIcon.setAttribute('title', 'unmute');
+    } else {
+        music.volume = lastVolume;
+        volumeBar.style.width = `${lastVolume * 100}%`;
+        volumeIcon.classList.add('fas', 'fa-volume-up');
+        volumeIcon.setAttribute('title', 'Mute');
+    }
+}
 
 // Update DOM
 function loadSong(song) {
@@ -149,5 +257,7 @@ function setProgressBar(e) {
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
 music.addEventListener('ended', nextSong);
+volumeRange.addEventListener('click', changeVolume);
+volumeIcon.addEventListener('click', toggleMute);
 music.addEventListener('timeupdate', updateProgressBar);
 progressContainer.addEventListener('click', setProgressBar);
