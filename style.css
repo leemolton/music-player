@@ -9,7 +9,8 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: #c9ced3;
+  /* background: #c9ced3; */
+  background-image: url("img/music-1.jpg");
   display: flex;
   justify-content: center;
   align-items: center;

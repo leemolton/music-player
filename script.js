@@ -28,19 +28,29 @@ const songs = [
     artist: 'Barry Manilow',
   },
   {
-    name: 'Space',
-    displayName: 'Space',
-    artist: 'Biffy Clyro',
-  },
-  {
-    name: 'Strange-Days',
-    displayName: 'Strange Days',
-    artist: 'The Struts and Robbie Williams',
+    name: 'Third-Finger-Left-Hand',
+    displayName: 'Third Finger Left Hand',
+    artist: 'Martha Reeves and the Vandellas',
   },
   {
     name: 'Greatest-Day',
     displayName: 'Greatest Day',
     artist: 'Take That',
+  },
+  {
+    name: 'Always-and-forever',
+    displayName: 'Always and Forever',
+    artist: 'Luther Vandross',
+  },
+  {
+    name: 'When-my-little-girl-is-smiling',
+    displayName: 'When my little girl is smiling',
+    artist: 'The Drifters',
+  },
+  {
+    name: 'Eye-of-the-tiger',
+    displayName: 'Eye of the Tiger',
+    artist: 'Survivor',
   },
 ];
 
